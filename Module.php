@@ -9,10 +9,12 @@ class Module implements AutoloaderProvider
 	public function init()
     {
     	$events = StaticEventManager::getInstance();
-        $events->attach('Zend\Mvc\Application', 'dispatch.error', function($e) {	
-        	require_once __DIR__ . DIRECTORY_SEPARATOR . 'Nette' . DIRECTORY_SEPARATOR . 'Debugger.php';
-        	\Debugger::enable();
-        	\Debugger::toStringException($e->getParam('exception'));
+        $events->attach('Zend\Mvc\Application', 'dispatch.error', function($e) {
+            if ($e->getParam('exception') instanceof \Exception) {
+                require_once __DIR__ . DIRECTORY_SEPARATOR . 'Nette' . DIRECTORY_SEPARATOR . 'Debugger.php';
+                \Debugger::enable();
+                \Debugger::toStringException($e->getParam('exception'));
+            }
         }, 1000);
     }
 
