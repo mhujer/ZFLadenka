@@ -412,7 +412,7 @@ htmlSpecialChars(Debugger::$source)?></a></li>
 				<li><?php echo
 htmlSpecialChars(Debugger::$source)?></li>
 			<?php endif?>
-            <li>Zend Framework <?php echo htmlSpecialChars(\Zend\Version::VERSION)?></li>
+            <li>Zend Framework <?php echo htmlSpecialChars(\Zend\Version\Version::VERSION)?></li>
 			<li>PHP <?php echo
 htmlSpecialChars(PHP_VERSION)?></li>
 			<?php if(isset($_SERVER['SERVER_SOFTWARE'])):?><li><?php echo

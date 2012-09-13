@@ -1,15 +1,14 @@
 <?php
 namespace ZFLadenka;
 
-use Zend\Module\Consumer\AutoloaderProvider,
-    Zend\EventManager\StaticEventManager;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 
-class Module implements AutoloaderProvider
+class Module implements AutoloaderProviderInterface
 {
-	public function init()
+	public function onBootstrap($e)
     {
-    	$events = StaticEventManager::getInstance();
-        $events->attach('Zend\Mvc\Application', 'dispatch.error', function($e) {
+        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager->attach('dispatch.error', function($e) {
             if ($e->getParam('exception') instanceof \Exception) {
                 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Nette' . DIRECTORY_SEPARATOR . 'Debugger.php';
                 \Debugger::enable();
